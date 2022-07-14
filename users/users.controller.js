@@ -30,12 +30,14 @@ function authenticate(req, res, next) {
             const dat = {}
             dat.code = 1
             dat.data = user
+            res.setHeader('Content-Type', 'application/json');
             res.json(dat)
         })
         .catch(err => {
             const dat = {}
             dat.code = 0
             dat.data = err
+            res.setHeader('Content-Type', 'application/json');
             res.json(dat)
         });
 }
