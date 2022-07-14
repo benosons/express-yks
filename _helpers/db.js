@@ -22,7 +22,7 @@ async function initialize() {
     // WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = '${database}');`);
 
     // connect to db
-    const sequelize = new Sequelize(database, user, password, { dialect: 'postgres' });
+    const sequelize = new Sequelize(database, user, password, { host : host, dialect: 'postgres' });
 
     // init models and add them to the exported db object
     db.User = require('../users/user.model')(sequelize);
