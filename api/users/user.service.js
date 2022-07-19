@@ -1,7 +1,7 @@
-﻿const config = require('../config.json');
+﻿const config = require('config.json');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const db = require('../_helpers/db');
+const db = require('_helpers/db');
 
 module.exports = {
     authenticate,
@@ -13,7 +13,7 @@ module.exports = {
 };
 
 async function authenticate({ username, password }) {
-    const user = await db.User.scope('withHash').findOne({ where: { username } });
+    const user = await db.user.scope('withHash').findOne({ where: { username } });
 
     if (!user)
         throw 'User not exist';
@@ -27,7 +27,7 @@ async function authenticate({ username, password }) {
 }
 
 async function getAll() {
-    return await db.User.findAll();
+    return await db.user.findAll();
 }
 
 async function getById(id) {
@@ -36,7 +36,7 @@ async function getById(id) {
 
 async function create(params) {
     // validate
-    if (await db.User.findOne({ where: { username: params.username } })) {
+    if (await db.user.findOne({ where: { username: params.username } })) {
         throw 'Username "' + params.username + '" is already taken';
     }
 
@@ -46,7 +46,7 @@ async function create(params) {
     }
 
     // save user
-    await db.User.create(params);
+    await db.user.create(params);
 }
 
 async function update(id, params) {
@@ -54,7 +54,7 @@ async function update(id, params) {
 
     // validate
     const usernameChanged = params.username && user.username !== params.username;
-    if (usernameChanged && await db.User.findOne({ where: { username: params.username } })) {
+    if (usernameChanged && await db.user.findOne({ where: { username: params.username } })) {
         throw 'Username "' + params.username + '" is already taken';
     }
 
@@ -78,7 +78,7 @@ async function _delete(id) {
 // helper functions
 
 async function getUser(id) {
-    const user = await db.User.findByPk(id);
+    const user = await db.user.findByPk(id);
     if (!user) throw 'User not found';
     return user;
 }

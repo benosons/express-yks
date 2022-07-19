@@ -10,7 +10,8 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // api routes
-app.use('/users', require('./users/users.controller'));
+app.use('/', express.static('public'));
+app.use('/users', require('./controller/users'));
 
 // global error handler
 app.use(errorHandler);
