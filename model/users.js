@@ -23,7 +23,8 @@ const options = {
 };
 
 // Define schema
-const Users = db.define('user', attributes, options)
+const users = db.define('user', attributes, options)
+users.sync();
    
   // Export model Product
-module.exports = Users
+module.exports = users

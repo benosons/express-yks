@@ -12,6 +12,7 @@ app.use(cors());
 // api routes
 app.use('/', express.static('public'));
 app.use('/users', require('./controller/users'));
+app.use('/data', require('./controller/data'));
 
 // global error handler
 app.use(errorHandler);
