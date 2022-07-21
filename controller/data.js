@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const Joi = require('joi');
-const validateRequest = require('_middleware/validate-request');
-const authorize = require('_middleware/authorize')
-const dataModel = require('model/data');
+const validateRequest = require('../_middleware/validate-request');
+const authorize = require('../_middleware/authorize')
+const dataModel = require('../model/data');
 
 const config = require('config.json');
 const jwt = require('jsonwebtoken');
