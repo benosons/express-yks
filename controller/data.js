@@ -150,7 +150,7 @@ async function updateSchema(req, res, next) {
 
 async function update(req, res, next) {
     const  id  = req.params.id
-    const users = userModel.update( req.body, { 
+    const users = dataModel.update( req.body, { 
         where: { 
             id: id
          }
