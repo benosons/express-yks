@@ -12,6 +12,9 @@ const bcrypt = require('bcryptjs');
 // routes
 router.post('/insert', authorize(), insertCakar);
 router.get('/', authorize(), getData);
+router.put('/:id', authorize(), update);
+router.get('/:id', authorize(), getById);
+
 
 module.exports = router;
 
@@ -78,8 +81,7 @@ async function insertCakar(req, res, next) {
         sgpt,
         hbs_ag,
         vdrl,
-        kesimpulan,
-        derajat_kesehatan
+        kesimpulan
     } = req.body
 
     const created = await dataModel.create(req.body)
@@ -95,8 +97,7 @@ async function insertCakar(req, res, next) {
         response.message = error
         res.setHeader('Content-Type', 'application/json');
         res.json(response)
-    })
-    
+    })    
     
 }
 
@@ -117,7 +118,7 @@ async function getCurrent(req, res, next) {
 async function getById(req, res, next) {
     const  id  = req.params.id
     
-    const users = await userModel.findAll({
+    const users = await dataModel.findAll({
         where: {
             id: id
         }
@@ -149,17 +150,26 @@ async function updateSchema(req, res, next) {
 }
 
 async function update(req, res, next) {
-    const  id  = req.params.id
-    const users = dataModel.update( req.body, { 
+    const id = req.body.id
+    delete req.body.id; 
+    console.log(id)
+    const datas = await dataModel.update( req.body , { 
         where: { 
             id: id
          }
+    }).then(result => {
+        const response = {}
+        response.code = 0
+        response.message = 'Successful'
+        res.setHeader('Content-Type', 'application/json');
+        res.json(response)
+    }).catch(error => {
+        const response = {}
+        response.code = 1
+        response.message = error
+        res.setHeader('Content-Type', 'application/json');
+        res.json(response)
     })
-    const response = {}
-    response.code = 0
-    response.message = 'Successful'
-    res.setHeader('Content-Type', 'application/json');
-    res.json(response)
 }
 
 async function _delete(req, res, next) {

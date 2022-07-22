@@ -67,7 +67,8 @@ const attributes = {
     hbs_ag: {type: DataTypes.STRING, allowNull: false},
     vdrl: {type: DataTypes.STRING, allowNull: false},
     kesimpulan: {type: DataTypes.TEXT, allowNull: false},
-    derajat_kesehatan: {type: DataTypes.STRING, allowNull: false}
+    derajat_kesehatan: {type: DataTypes.STRING, allowNull: true},
+    status: {type: DataTypes.STRING, allowNull: true}
 };
 
 const options = {
